@@ -342,7 +342,7 @@ def initFiles():
     LOPoints.append(temp)
     temp = point(3)
     LOPoints.append(temp)
-    temp = point(4)
+    temp = point(4) 
     LOPoints.append(temp)
     return LOPoints, dm
     
