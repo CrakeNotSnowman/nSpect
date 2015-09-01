@@ -31,13 +31,13 @@ class point(object):
     shape = ""#self.scene.objects['Sphere']
 
     def __init__(self, pointID):
-	self.pointID = pointID
-	self.loc = (3*random.random(),3*random.random(),3*random.random())
+        self.pointID = pointID
+        self.loc = (3*random.random(),3*random.random(),3*random.random())
 
     def hide(pointID):
-	pass
-	
-	
+        pass
+        
+        
     
     
 
@@ -48,19 +48,19 @@ class NSpect(Widget):
     
     def __init__(self, **kwargs):
 
-	LOP, dm = initFiles()
+        LOP, dm = initFiles()
 
         #self.canvas = RenderContext(compute_normal_mat=True)
         #self.canvas.shader.source = resource_find('simple.glsl')
         self.canvas = Canvas()
         self.scene = ObjFileLoader(resource_find("testnurbs.obj"))
-	self.LOP = LOP
-	self.dm = dm
+        self.LOP = LOP
+        self.dm = dm
         
         self.meshes = []
 
-	self.panCamera = False # KEITH EDIT
-	self.pause = True # KEITH EDIT
+        self.panCamera = False # KEITH EDIT
+        self.pause = True # KEITH EDIT
         
         with self.canvas:
             self.fbo = Fbo(size=self.size, with_depthbuffer=True, compute_normal_mat=True, clear_color=(0., 0., 0., 0.))
@@ -69,14 +69,14 @@ class NSpect(Widget):
         #self.texture = self.fbo.texture
         
         # *&Y*&Y*&YH*&Y*&Y*&Y*Y&*
-	# Keith: This allows keyboard interaction
-	# http://stackoverflow.com/questions/22137786/
-	self._keyboard = Window.request_keyboard(None, self)
+        # Keith: This allows keyboard interaction
+        # http://stackoverflow.com/questions/22137786/
+        self._keyboard = Window.request_keyboard(None, self)
         if not self._keyboard:
             return
         self._keyboard.bind(on_key_down=self.on_keyboard_down)
         # *&Y*&Y*&YH*&Y*&Y*&Y*Y&*
-	
+        
         super(NSpect, self).__init__(**kwargs)
 
         with self.fbo:
@@ -161,47 +161,47 @@ class NSpect(Widget):
                         id_color=[i / 255. for i in id_color],
                     )
             
-	def drawPoints():
-	    #print len(LOPoints), "alksdjflkasjdflkasdj"
-	    print self.scene.objects
-	    for i in range(len(self.LOP)):
-		PushMatrix()
-		point = self.LOP[i]
-		point.shape = self.scene.objects['Sphere']
-		point.color = _set_color(i/10., (i+1)/10., 0., id_color=(int(255/(1+i)), int(255/(1+i)), 255))
-		#temp.shape.sphere_rot = Rotate(0, i, 0, i)
-		#temp.shape.sphTr = Translate(temp.loc[0],temp.loc[1],temp.loc[2])
-		#msg = "scale" + str(i)
-		#temp.shape.msg = Scale(0.1,.1,.1)
-		point.shape.scale = Scale((i+1)/10.0,(i+1)/10.0,(i+1)/10.0)
-		#temp.shape.msg.origin = (temp.loc[0],temp.loc[1],temp.loc[2])
-		self.LOP[i] = point
-		print point.shape
-		_draw_element(point.shape)
-		point.shape.scale.origin =  (point.loc[0],point.loc[1],point.loc[2])
-		PopMatrix()
-		
-	drawPoints()
-	'''
-	PushMatrix()
-	temp = self.LOP[0]
-	self.jerry = self.scene.objects['Sphere']
-	_set_color(0, 1/10, 0., id_color=(int(255), int(255), 255))
-	self.jerry.scale = Scale(0.1,.1,.1)
- 	self.jerry.origin = (temp.loc[0],temp.loc[1],temp.loc[2])
-	_draw_element(self.jerry)
-	PopMatrix()
+        def drawPoints():
+            #print len(LOPoints), "alksdjflkasjdflkasdj"
+            print self.scene.objects
+            for i in range(len(self.LOP)):
+                PushMatrix()
+                point = self.LOP[i]
+                point.shape = self.scene.objects['Sphere']
+                point.color = _set_color(i/10., (i+1)/10., 0., id_color=(int(255/(1+i)), int(255/(1+i)), 255))
+                #temp.shape.sphere_rot = Rotate(0, i, 0, i)
+                #temp.shape.sphTr = Translate(temp.loc[0],temp.loc[1],temp.loc[2])
+                #msg = "scale" + str(i)
+                #temp.shape.msg = Scale(0.1,.1,.1)
+                point.shape.scale = Scale((i+1)/10.0,(i+1)/10.0,(i+1)/10.0)
+                #temp.shape.msg.origin = (temp.loc[0],temp.loc[1],temp.loc[2])
+                self.LOP[i] = point
+                print point.shape
+                _draw_element(point.shape)
+                point.shape.scale.origin =  (point.loc[0],point.loc[1],point.loc[2])
+                PopMatrix()
+                
+        drawPoints()
+        '''
+        PushMatrix()
+        temp = self.LOP[0]
+        self.jerry = self.scene.objects['Sphere']
+        _set_color(0, 1/10, 0., id_color=(int(255), int(255), 255))
+        self.jerry.scale = Scale(0.1,.1,.1)
+         self.jerry.origin = (temp.loc[0],temp.loc[1],temp.loc[2])
+        _draw_element(self.jerry)
+        PopMatrix()
 
-	PushMatrix()
-	temp1 = self.LOP[1]
-	self.Gary = self.scene.objects['Sphere']
-	_set_color(0.7, 0.7, 0., id_color=(int(255), int(255), 255))
-	self.Gary.scale = Scale(0.1,.1,.1)
- 	self.Gary.origin = (3,3,3)
-	_draw_element(self.Gary)
-	PopMatrix()
-	'''
-	'''
+        PushMatrix()
+        temp1 = self.LOP[1]
+        self.Gary = self.scene.objects['Sphere']
+        _set_color(0.7, 0.7, 0., id_color=(int(255), int(255), 255))
+        self.Gary.scale = Scale(0.1,.1,.1)
+         self.Gary.origin = (3,3,3)
+        _draw_element(self.Gary)
+        PopMatrix()
+        '''
+        '''
         # Draw sphere in the center
         sphere = self.scene.objects['Sphere']
         _set_color(0.7, 0.7, 0., id_color=(255, 255, 0))
@@ -233,10 +233,10 @@ class NSpect(Widget):
     '''
     An Ode:
     FUCK YOU ADHD JERRY
-	JERRY IS THAT ONE LITTLE FUCKING POINT WHO MOVES
-	WHICH HE IS SUPPOSE TO DO
-	BUT NO OTHER FUCKING POINT WILL MOVE
-	SO FUCK YOU ADHD JERRY
+        JERRY IS THAT ONE LITTLE FUCKING POINT WHO MOVES
+        WHICH HE IS SUPPOSE TO DO
+        BUT NO OTHER FUCKING POINT WILL MOVE
+        SO FUCK YOU ADHD JERRY
     '''
 
     def update_scene(self, *largs):
@@ -259,53 +259,52 @@ class NSpect(Widget):
                         id_color=[i / 255. for i in id_color],
                     )
 
-	def test2(point):
-	    #print myPoint.pointID
-	    
-	    newLoc = (0.1*random.random(),0.1*random.random(),0.1*random.random())
-	    oldLoc = point.shape.scale.origin
-	    newLoc = ( newLoc[0]-0.05+oldLoc[0], newLoc[1]-0.05+oldLoc[1], newLoc[2]-0.05+oldLoc[2] )
-	    #self.msg.origin = newLoc
-	    #print "alksdjflkasjf"
-	    return newLoc #myPoint
+        def test2(point):
+            #print myPoint.pointID
+            
+            newLoc = (0.1*random.random(),0.1*random.random(),0.1*random.random())
+            oldLoc = point.shape.scale.origin
+            newLoc = ( newLoc[0]-0.05+oldLoc[0], newLoc[1]-0.05+oldLoc[1], newLoc[2]-0.05+oldLoc[2] )
+            #self.msg.origin = newLoc
+            #print "alksdjflkasjf"
+            return newLoc #myPoint
 
-	def updateLocs(self):
-	
-	    for i in range(len(self.LOP)):
-		PushMatrix()
-		point = self.LOP[i]
-		#point.shape.scale = Scale((i+1)/10.0,(i+1)/10.0,(i+1)/10.0)
-		#point.scale.origin =  
-		point.shape.scale.origin = test2(point)
-		#self.LOP[i].shape.scale.origin = test2(point)
-		_draw_element(point.shape)
-		print i, self.LOP[i].shape.scale.origin
-		PopMatrix()
-		
-	    #test2(self.LOP[0])
-	    #self.LOP[1].shape.scale.origin=test2(self.LOP[1])
-	    #self.LOP[2].shape.scale.origin=test2(self.LOP[2])
-	    #test2(self.LOP[3])
-	    #test2(self.LOP[4])
+        def updateLocs(self):
+        
+            for i in range(len(self.LOP)):
+                point = self.LOP[i]
+                #point.shape.scale = Scale((i+1)/10.0,(i+1)/10.0,(i+1)/10.0)
+                #point.scale.origin =  
+                point.shape.scale.origin = test2(point)
+                #self.LOP[i].shape.scale.origin = test2(point)
+                #_draw_element(point.shape)
+                #print i, self.LOP[i].shape.scale.origin
+                print self.LOP[i].shape
+                
+            #test2(self.LOP[0])
+            #self.LOP[1].shape.scale.origin=test2(self.LOP[1])
+            #self.LOP[2].shape.scale.origin=test2(self.LOP[2])
+            #test2(self.LOP[3])
+            #test2(self.LOP[4])
 
-	    
-	if self.pause == False:
+            
+        if not self.pause:
             #self.pyramid_rot.angle += 0.5
             #self.box_rot.angle += 0.5
             #self.cylinder_rot.angle += 0.5
-	    updateLocs(self)
-	    #test2(self.jerry, 0)
-	    #test2(self.Gary, 0)
-	
-	pass
+            updateLocs(self)
+            #test2(self.jerry, 0)
+            #test2(self.Gary, 0)
+        
+        pass
 
         
     
     # =============== All stuff after is for trackball implementation =============
     def moveA(self):
-	
+        
 
-	pass
+        pass
     def moveB(self):
         pass
     def define_rotate_angle(self, touch):
@@ -333,25 +332,25 @@ class NSpect(Widget):
     # Keith: This allows keyboard interaction
     def on_keyboard_down(self, keyboard, keycode, text, modifiers):
         if keycode[1] == 'left':
-	    if self.panCamera == True:
-		self.x -= 10
-	    else: 
-		self.roty.angle += 10
+            if self.panCamera == True:
+                self.x -= 10
+            else: 
+                self.roty.angle += 10
         elif keycode[1] == 'right':
-	    if self.panCamera == True:
-		self.x += 10
-	    else: 
-		self.roty.angle -= 10
+            if self.panCamera == True:
+                self.x += 10
+            else: 
+                self.roty.angle -= 10
         if keycode[1] == 'up':
-	    if self.panCamera == True:
-		self.y += 10
-	    else: 
-		self.rotx.angle += 10
+            if self.panCamera == True:
+                self.y += 10
+            else: 
+                self.rotx.angle += 10
         elif keycode[1] == 'down':
-	    if self.panCamera == True:
-		self.y -= 10
-	    else: 
-		self.rotx.angle -= 10
+            if self.panCamera == True:
+                self.y -= 10
+            else: 
+                self.rotx.angle -= 10
 
         elif keycode[1] == 'i':
             self.update_glsl()                             
@@ -368,18 +367,18 @@ class NSpect(Widget):
             Logger.debug('Scale up')                  
             xyz = self.scale.xyz  
             if scale:
-		temp = tuple(p - scale for p in xyz)
-		# Prevent the collection from having a negative size
-		if temp[0] > 0:
+                temp = tuple(p - scale for p in xyz)
+                # Prevent the collection from having a negative size
+                if temp[0] > 0:
                     self.scale.xyz = temp
-	elif keycode[1] == 't':
-	    self.panCamera = not self.panCamera    
-	elif keycode[1] == 'p':
-	    self.pause = not self.pause    
-	    if not self.pause:
-		print "Playing"
-	    else:
-		print "Paused"
+        elif keycode[1] == 't':
+            self.panCamera = not self.panCamera    
+        elif keycode[1] == 'p':
+            self.pause = not self.pause    
+            if not self.pause:
+                print "Playing"
+            else:
+                print "Paused"
     
     
     
