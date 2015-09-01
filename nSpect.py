@@ -32,7 +32,7 @@ class point(object):
 
     def __init__(self, pointID):
         self.pointID = pointID
-        self.loc = (3*random.random(),3*random.random(),3*random.random())
+        self.loc = (4*random.random(),4*random.random(),4*random.random())
 
     def hide(pointID):
         pass
@@ -162,19 +162,13 @@ class NSpect(Widget):
                     )
             
         def drawPoints():
-            #print len(LOPoints), "alksdjflkasjdflkasdj"
             print self.scene.objects
             for i in range(len(self.LOP)):
                 PushMatrix()
                 point = self.LOP[i]
                 point.shape = self.scene.objects['Sphere']
                 point.color = _set_color(i/10., (i+1)/10., 0., id_color=(int(255/(1+i)), int(255/(1+i)), 255))
-                #temp.shape.sphere_rot = Rotate(0, i, 0, i)
-                #temp.shape.sphTr = Translate(temp.loc[0],temp.loc[1],temp.loc[2])
-                #msg = "scale" + str(i)
-                #temp.shape.msg = Scale(0.1,.1,.1)
                 point.shape.scale = Scale((i+1)/10.0,(i+1)/10.0,(i+1)/10.0)
-                #temp.shape.msg.origin = (temp.loc[0],temp.loc[1],temp.loc[2])
                 self.LOP[i] = point
                 print point.shape
                 _draw_element(point.shape)
@@ -182,120 +176,20 @@ class NSpect(Widget):
                 PopMatrix()
                 
         drawPoints()
-        '''
-        PushMatrix()
-        temp = self.LOP[0]
-        self.jerry = self.scene.objects['Sphere']
-        _set_color(0, 1/10, 0., id_color=(int(255), int(255), 255))
-        self.jerry.scale = Scale(0.1,.1,.1)
-         self.jerry.origin = (temp.loc[0],temp.loc[1],temp.loc[2])
-        _draw_element(self.jerry)
-        PopMatrix()
-
-        PushMatrix()
-        temp1 = self.LOP[1]
-        self.Gary = self.scene.objects['Sphere']
-        _set_color(0.7, 0.7, 0., id_color=(int(255), int(255), 255))
-        self.Gary.scale = Scale(0.1,.1,.1)
-         self.Gary.origin = (3,3,3)
-        _draw_element(self.Gary)
-        PopMatrix()
-        '''
-        '''
-        # Draw sphere in the center
-        sphere = self.scene.objects['Sphere']
-        _set_color(0.7, 0.7, 0., id_color=(255, 255, 0))
-        _draw_element(sphere)
-        
-        # Then draw other elements and totate it in different axis
-        pyramid = self.scene.objects['Pyramid']
-        PushMatrix()
-        self.pyramid_rot = Rotate(0, 0, 0, 1)
-        _set_color(0., 0., .7, id_color=(0., 0., 255))
-        _draw_element(pyramid)
-        PopMatrix()
-        
-        box = self.scene.objects['Box']
-        PushMatrix()
-        self.box_rot = Rotate(0, 0, 1, 0)
-        _set_color(.7, 0., 0., id_color=(255, 0., 0))
-        _draw_element(box)
-        PopMatrix()
-
-        cylinder = self.scene.objects['Cylinder']
-        PushMatrix()
-        self.cylinder_rot = Rotate(0, 1, 0, 0)
-        _set_color(0.0, .7, 0., id_color=(0., 255, 0))
-        _draw_element(cylinder)
-        PopMatrix()
-        '''
-
-    '''
-    An Ode:
-    FUCK YOU ADHD JERRY
-        JERRY IS THAT ONE LITTLE FUCKING POINT WHO MOVES
-        WHICH HE IS SUPPOSE TO DO
-        BUT NO OTHER FUCKING POINT WILL MOVE
-        SO FUCK YOU ADHD JERRY
-    '''
 
     def update_scene(self, *largs):
-        def _draw_element(m):
-            Mesh(
-                vertices=m.vertices,
-                indices=m.indices,
-                fmt=m.vertex_format,
-                mode='triangles',
-            )
-            
-        def _set_color(*color, **kw):
-            id_color = kw.pop('id_color', (0, 0, 0))
-            return ChangeState(
-                        Kd=color,
-                        Ka=color,
-                        Ks=(.3, .3, .3),
-                        Tr=1., Ns=1.,
-                        intensity=1.,
-                        id_color=[i / 255. for i in id_color],
-                    )
-
-        def test2(point):
-            #print myPoint.pointID
-            
+        def randLoc(point):
             newLoc = (0.1*random.random(),0.1*random.random(),0.1*random.random())
             oldLoc = point.shape.scale.origin
             newLoc = ( newLoc[0]-0.05+oldLoc[0], newLoc[1]-0.05+oldLoc[1], newLoc[2]-0.05+oldLoc[2] )
-            #self.msg.origin = newLoc
-            #print "alksdjflkasjf"
-            return newLoc #myPoint
-
-        def updateLocs(self):
-        
+            return newLoc 
+        def updateLocs(self):        
             for i in range(len(self.LOP)):
                 point = self.LOP[i]
-                #point.shape.scale = Scale((i+1)/10.0,(i+1)/10.0,(i+1)/10.0)
-                #point.scale.origin =  
-                point.shape.scale.origin = test2(point)
-                #self.LOP[i].shape.scale.origin = test2(point)
-                #_draw_element(point.shape)
-                #print i, self.LOP[i].shape.scale.origin
-                print self.LOP[i].shape
-                
-            #test2(self.LOP[0])
-            #self.LOP[1].shape.scale.origin=test2(self.LOP[1])
-            #self.LOP[2].shape.scale.origin=test2(self.LOP[2])
-            #test2(self.LOP[3])
-            #test2(self.LOP[4])
-
-            
+                point.shape.scale.origin = randLoc(point) 
+           
         if not self.pause:
-            #self.pyramid_rot.angle += 0.5
-            #self.box_rot.angle += 0.5
-            #self.cylinder_rot.angle += 0.5
-            updateLocs(self)
-            #test2(self.jerry, 0)
-            #test2(self.Gary, 0)
-        
+            updateLocs(self)        
         pass
 
         
